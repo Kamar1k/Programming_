@@ -12,10 +12,16 @@ namespace ObjectOrientedPractics.Model
     /// </summary>
     internal class Item
     {
+
         /// <summary>
         /// Уникальный номер товара
         /// </summary>
-        private readonly int _id = 0;
+        private readonly int _id;
+
+        /// <summary>
+        /// Общее количество предметов.
+        /// </summary>
+        private static int _IDCount;
 
         /// <summary>
         /// Название товара
@@ -87,6 +93,8 @@ namespace ObjectOrientedPractics.Model
         /// <param name="cost">Стоимость товара</param>
         public Item(string name, string info, double cost)
         {
+            _IDCount++;
+            _id = _IDCount;
             _name = name;
             _info = info;
             _cost = cost;

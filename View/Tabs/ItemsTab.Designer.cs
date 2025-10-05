@@ -44,7 +44,7 @@
             splitContainer1 = new SplitContainer();
             panel3 = new Panel();
             panel1 = new Panel();
-            button1 = new Button();
+            RemoveButton = new Button();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -92,6 +92,7 @@
             ItemsListBox.Name = "ItemsListBox";
             ItemsListBox.Size = new Size(315, 334);
             ItemsListBox.TabIndex = 3;
+            ItemsListBox.SelectedIndexChanged += ItemsListBox_SelectedIndexChanged;
             // 
             // label2
             // 
@@ -129,7 +130,6 @@
             label5.Size = new Size(42, 15);
             label5.TabIndex = 3;
             label5.Text = "Name:";
-            label5.Click += label5_Click;
             // 
             // label6
             // 
@@ -155,6 +155,7 @@
             CostTextBox.Name = "CostTextBox";
             CostTextBox.Size = new Size(135, 23);
             CostTextBox.TabIndex = 6;
+            CostTextBox.TextChanged += CostTextBox_TextChanged;
             // 
             // NameTextBox
             // 
@@ -176,7 +177,7 @@
             DescriptionTextBox.Name = "DescriptionTextBox";
             DescriptionTextBox.Size = new Size(467, 128);
             DescriptionTextBox.TabIndex = 8;
-            DescriptionTextBox.TextChanged += textBox4_TextChanged;
+            DescriptionTextBox.TextChanged += DescriptionTextBox_TextChanged;
             // 
             // splitContainer1
             // 
@@ -203,7 +204,6 @@
             splitContainer1.Panel2.Controls.Add(label4);
             splitContainer1.Panel2.Controls.Add(label6);
             splitContainer1.Panel2.Controls.Add(label5);
-            splitContainer1.Panel2.Paint += splitContainer1_Panel2_Paint;
             splitContainer1.Size = new Size(799, 417);
             splitContainer1.SplitterDistance = 322;
             splitContainer1.TabIndex = 2;
@@ -219,21 +219,22 @@
             // panel1
             // 
             panel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            panel1.Controls.Add(button1);
+            panel1.Controls.Add(RemoveButton);
             panel1.Location = new Point(111, 370);
             panel1.Name = "panel1";
             panel1.Size = new Size(101, 41);
             panel1.TabIndex = 4;
             // 
-            // button1
+            // RemoveButton
             // 
-            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            button1.Location = new Point(3, 3);
-            button1.Name = "button1";
-            button1.Size = new Size(95, 36);
-            button1.TabIndex = 6;
-            button1.Text = "Remove";
-            button1.UseVisualStyleBackColor = true;
+            RemoveButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            RemoveButton.Location = new Point(3, 3);
+            RemoveButton.Name = "RemoveButton";
+            RemoveButton.Size = new Size(95, 36);
+            RemoveButton.TabIndex = 6;
+            RemoveButton.Text = "Remove";
+            RemoveButton.UseVisualStyleBackColor = true;
+            RemoveButton.Click += RemoveButton_Click;
             // 
             // ItemsTab
             // 
@@ -242,7 +243,6 @@
             Controls.Add(splitContainer1);
             Name = "ItemsTab";
             Size = new Size(799, 417);
-            Load += ItemsTab_Load;
             panel2.ResumeLayout(false);
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel1.PerformLayout();
@@ -271,6 +271,6 @@
         private SplitContainer splitContainer1;
         private Panel panel3;
         private Panel panel1;
-        private Button button1;
+        private Button RemoveButton;
     }
 }

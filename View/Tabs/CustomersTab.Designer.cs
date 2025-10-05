@@ -28,20 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            listBox1 = new ListBox();
+            CustomerListBox = new ListBox();
             label1 = new Label();
             label5 = new Label();
-            textBox2 = new TextBox();
+            AddressTextBox = new TextBox();
             label4 = new Label();
-            textBox1 = new TextBox();
+            FullNameTextBox = new TextBox();
             IDTextBox = new TextBox();
             label3 = new Label();
             label2 = new Label();
             splitContainer1 = new SplitContainer();
             panel3 = new Panel();
-            button3 = new Button();
+            RemoveButton = new Button();
             panel1 = new Panel();
-            button1 = new Button();
+            AddButton = new Button();
             panel2 = new Panel();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -51,16 +51,15 @@
             panel1.SuspendLayout();
             SuspendLayout();
             // 
-            // listBox1
+            // CustomerListBox
             // 
-            listBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 15;
-            listBox1.Items.AddRange(new object[] { "CustomerListBox" });
-            listBox1.Location = new Point(3, 18);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(315, 334);
-            listBox1.TabIndex = 2;
+            CustomerListBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            CustomerListBox.FormattingEnabled = true;
+            CustomerListBox.ItemHeight = 15;
+            CustomerListBox.Location = new Point(3, 18);
+            CustomerListBox.Name = "CustomerListBox";
+            CustomerListBox.Size = new Size(315, 334);
+            CustomerListBox.TabIndex = 2;
             // 
             // label1
             // 
@@ -82,15 +81,15 @@
             label5.TabIndex = 10;
             label5.Text = "Address:";
             // 
-            // textBox2
+            // AddressTextBox
             // 
-            textBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            textBox2.Location = new Point(72, 80);
-            textBox2.MinimumSize = new Size(135, 23);
-            textBox2.Multiline = true;
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(393, 89);
-            textBox2.TabIndex = 9;
+            AddressTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            AddressTextBox.Location = new Point(72, 80);
+            AddressTextBox.MinimumSize = new Size(135, 23);
+            AddressTextBox.Multiline = true;
+            AddressTextBox.Name = "AddressTextBox";
+            AddressTextBox.Size = new Size(393, 89);
+            AddressTextBox.TabIndex = 9;
             // 
             // label4
             // 
@@ -101,14 +100,14 @@
             label4.TabIndex = 8;
             label4.Text = "Full Name:";
             // 
-            // textBox1
+            // FullNameTextBox
             // 
-            textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBox1.Location = new Point(73, 51);
-            textBox1.MinimumSize = new Size(135, 23);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(392, 23);
-            textBox1.TabIndex = 7;
+            FullNameTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            FullNameTextBox.Location = new Point(73, 51);
+            FullNameTextBox.MinimumSize = new Size(135, 23);
+            FullNameTextBox.Name = "FullNameTextBox";
+            FullNameTextBox.Size = new Size(392, 23);
+            FullNameTextBox.TabIndex = 7;
             // 
             // IDTextBox
             // 
@@ -149,7 +148,7 @@
             splitContainer1.Panel1.Controls.Add(panel3);
             splitContainer1.Panel1.Controls.Add(panel1);
             splitContainer1.Panel1.Controls.Add(panel2);
-            splitContainer1.Panel1.Controls.Add(listBox1);
+            splitContainer1.Panel1.Controls.Add(CustomerListBox);
             splitContainer1.Panel1.Controls.Add(label1);
             // 
             // splitContainer1.Panel2
@@ -157,9 +156,9 @@
             splitContainer1.Panel2.Controls.Add(label2);
             splitContainer1.Panel2.Controls.Add(label5);
             splitContainer1.Panel2.Controls.Add(label3);
-            splitContainer1.Panel2.Controls.Add(textBox2);
+            splitContainer1.Panel2.Controls.Add(AddressTextBox);
             splitContainer1.Panel2.Controls.Add(label4);
-            splitContainer1.Panel2.Controls.Add(textBox1);
+            splitContainer1.Panel2.Controls.Add(FullNameTextBox);
             splitContainer1.Panel2.Controls.Add(IDTextBox);
             splitContainer1.Size = new Size(799, 417);
             splitContainer1.SplitterDistance = 323;
@@ -168,40 +167,40 @@
             // panel3
             // 
             panel3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            panel3.Controls.Add(button3);
+            panel3.Controls.Add(RemoveButton);
             panel3.Location = new Point(110, 373);
             panel3.Name = "panel3";
             panel3.Size = new Size(101, 41);
             panel3.TabIndex = 6;
             // 
-            // button3
+            // RemoveButton
             // 
-            button3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            button3.Location = new Point(3, 2);
-            button3.Name = "button3";
-            button3.Size = new Size(95, 36);
-            button3.TabIndex = 7;
-            button3.Text = "Remove";
-            button3.UseVisualStyleBackColor = true;
+            RemoveButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            RemoveButton.Location = new Point(3, 2);
+            RemoveButton.Name = "RemoveButton";
+            RemoveButton.Size = new Size(95, 36);
+            RemoveButton.TabIndex = 7;
+            RemoveButton.Text = "Remove";
+            RemoveButton.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
             panel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            panel1.Controls.Add(button1);
+            panel1.Controls.Add(AddButton);
             panel1.Location = new Point(3, 373);
             panel1.Name = "panel1";
             panel1.Size = new Size(101, 41);
             panel1.TabIndex = 7;
             // 
-            // button1
+            // AddButton
             // 
-            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            button1.Location = new Point(3, 2);
-            button1.Name = "button1";
-            button1.Size = new Size(95, 36);
-            button1.TabIndex = 7;
-            button1.Text = "Add";
-            button1.UseVisualStyleBackColor = true;
+            AddButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            AddButton.Location = new Point(3, 2);
+            AddButton.Name = "AddButton";
+            AddButton.Size = new Size(95, 36);
+            AddButton.TabIndex = 7;
+            AddButton.Text = "Add";
+            AddButton.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
@@ -232,18 +231,18 @@
         #endregion
         private Label label1;
         private Label label2;
-        private ListBox listBox1;
+        private ListBox CustomerListBox;
         private Label label3;
         private TextBox IDTextBox;
-        private TextBox textBox1;
+        private TextBox FullNameTextBox;
         private Label label4;
         private Label label5;
-        private TextBox textBox2;
+        private TextBox AddressTextBox;
         private SplitContainer splitContainer1;
         private Panel panel2;
         private Panel panel1;
         private Panel panel3;
-        private Button button3;
-        private Button button1;
+        private Button RemoveButton;
+        private Button AddButton;
     }
 }

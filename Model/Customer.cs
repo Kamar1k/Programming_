@@ -18,6 +18,11 @@ namespace ObjectOrientedPractics.Model
         private readonly int _id;
 
         /// <summary>
+        /// Общее количество предметов.
+        /// </summary>
+        private static int _IDCount;
+
+        /// <summary>
         /// ФИО покупателя
         /// </summary>
         private string _fullname;
@@ -68,6 +73,8 @@ namespace ObjectOrientedPractics.Model
         /// <param name="address">Адрес доставки для покупателя</param>
         public Customer(string fullname, string address)
         {
+            _IDCount++;
+            _id = _IDCount;
             _fullname = fullname;
             _address = address;
         }
