@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            CustomerListBox = new ListBox();
+            CustomersListBox = new ListBox();
             label1 = new Label();
             label5 = new Label();
             AddressTextBox = new TextBox();
@@ -51,15 +51,16 @@
             panel1.SuspendLayout();
             SuspendLayout();
             // 
-            // CustomerListBox
+            // CustomersListBox
             // 
-            CustomerListBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            CustomerListBox.FormattingEnabled = true;
-            CustomerListBox.ItemHeight = 15;
-            CustomerListBox.Location = new Point(3, 18);
-            CustomerListBox.Name = "CustomerListBox";
-            CustomerListBox.Size = new Size(315, 334);
-            CustomerListBox.TabIndex = 2;
+            CustomersListBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            CustomersListBox.FormattingEnabled = true;
+            CustomersListBox.ItemHeight = 15;
+            CustomersListBox.Location = new Point(3, 18);
+            CustomersListBox.Name = "CustomersListBox";
+            CustomersListBox.Size = new Size(315, 334);
+            CustomersListBox.TabIndex = 2;
+            CustomersListBox.SelectedIndexChanged += CustomerListBox_SelectedIndexChanged;
             // 
             // label1
             // 
@@ -90,6 +91,7 @@
             AddressTextBox.Name = "AddressTextBox";
             AddressTextBox.Size = new Size(393, 89);
             AddressTextBox.TabIndex = 9;
+            AddressTextBox.TextChanged += AddressTextBox_TextChanged_1;
             // 
             // label4
             // 
@@ -108,6 +110,7 @@
             FullNameTextBox.Name = "FullNameTextBox";
             FullNameTextBox.Size = new Size(392, 23);
             FullNameTextBox.TabIndex = 7;
+            FullNameTextBox.TextChanged += FullNameTextBox_TextChanged_1;
             // 
             // IDTextBox
             // 
@@ -135,7 +138,6 @@
             label2.Size = new Size(118, 15);
             label2.TabIndex = 2;
             label2.Text = "Selected Customers";
-            label2.Click += label2_Click;
             // 
             // splitContainer1
             // 
@@ -148,7 +150,7 @@
             splitContainer1.Panel1.Controls.Add(panel3);
             splitContainer1.Panel1.Controls.Add(panel1);
             splitContainer1.Panel1.Controls.Add(panel2);
-            splitContainer1.Panel1.Controls.Add(CustomerListBox);
+            splitContainer1.Panel1.Controls.Add(CustomersListBox);
             splitContainer1.Panel1.Controls.Add(label1);
             // 
             // splitContainer1.Panel2
@@ -182,6 +184,7 @@
             RemoveButton.TabIndex = 7;
             RemoveButton.Text = "Remove";
             RemoveButton.UseVisualStyleBackColor = true;
+            RemoveButton.Click += RemoveButton_Click_1;
             // 
             // panel1
             // 
@@ -201,6 +204,7 @@
             AddButton.TabIndex = 7;
             AddButton.Text = "Add";
             AddButton.UseVisualStyleBackColor = true;
+            AddButton.Click += AddButton_Click_1;
             // 
             // panel2
             // 
@@ -231,7 +235,7 @@
         #endregion
         private Label label1;
         private Label label2;
-        private ListBox CustomerListBox;
+        private ListBox CustomersListBox;
         private Label label3;
         private TextBox IDTextBox;
         private TextBox FullNameTextBox;

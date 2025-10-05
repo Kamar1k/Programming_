@@ -30,7 +30,7 @@ namespace ObjectOrientedPractics.View.Tabs
         }
 
         /// <summary>
-        /// Добавление нового товара
+        /// Обрабатывает событие нажатия кнопки добавления товара.
         /// </summary>
         private void AddButton_Click(object sender, EventArgs e)
         {
@@ -42,11 +42,12 @@ namespace ObjectOrientedPractics.View.Tabs
         }
 
         /// <summary>
-        /// Удаление товара
+        /// Обрабатывает событие нажатия кнопки удаления товара.
         /// </summary>
         private void RemoveButton_Click(object sender, EventArgs e)
         {
-            if (ItemsListBox.Items.Count == 0) return;
+            if (ItemsListBox.Items.Count == 0 || ItemsListBox.SelectedIndex == -1) return;
+
             int index = ItemsListBox.SelectedIndex;
             _items.RemoveAt(index);
             ItemsListBox.Items.RemoveAt(index);
@@ -56,18 +57,17 @@ namespace ObjectOrientedPractics.View.Tabs
             else if (ItemsListBox.Items.Count != 0)
                 ItemsListBox.SelectedIndex = 0;
             else
+            {
                 ItemsListBox.SelectedIndex = -1;
-
-            UpdateTextBoxes(_currentItem);
-
-            if (ItemsListBox.Items.Count == 0)
                 ClearTextBoxes();
+                _currentItem = null;
+            }
         }
 
         /// <summary>
-        /// Обновление текстбоксов
+        /// Обновляет значения текстовых полей данными указанного товара.
         /// </summary>
-        /// <param name="item">Товар</param>
+        /// <param name="item">Товар, данные которого отображаются.</param>
         private void UpdateTextBoxes(Item item)
         {
             IDTextBox.Text = item.ID.ToString();
@@ -85,10 +85,12 @@ namespace ObjectOrientedPractics.View.Tabs
             CostTextBox.Text = "";
             NameTextBox.Text = "";
             DescriptionTextBox.Text = "";
+            _currentItem = null;
         }
 
         /// <summary>
-        /// Извенение цены товара, когда в CostTextBox меняется значение
+        /// Обрабатывает изменение текста в поле стоимости товара.
+        /// Выполняет валидацию и обновление стоимости.
         /// </summary>
         private void CostTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -112,13 +114,21 @@ namespace ObjectOrientedPractics.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Обрабатывает изменение текста в поле названия товара.
+        /// Выполняет валидацию и обновление названия.
+        /// </summary>
         private void NameTextBox_TextChanged(object sender, EventArgs e)
         {
             try
             {
                 ValueValidator.AssertStringOnlengs(NameTextBox.Text, 200, "Название");
                 _currentItem.Name = NameTextBox.Text;
-                ItemsListBox.Items[_items.IndexOf(_currentItem)] = _currentItem.Name;
+                int index = _items.IndexOf(_currentItem);
+                if (index != -1 && index < ItemsListBox.Items.Count)
+                {
+                    ItemsListBox.Items[index] = _currentItem.Name;
+                }
             }
             catch (ArgumentException ex)
             {
@@ -126,6 +136,10 @@ namespace ObjectOrientedPractics.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Обрабатывает изменение текста в поле описания товара.
+        /// Выполняет валидацию и обновление описания.
+        /// </summary>
         private void DescriptionTextBox_TextChanged(object sender, EventArgs e)
         {
             try
@@ -140,7 +154,8 @@ namespace ObjectOrientedPractics.View.Tabs
         }
 
         /// <summary>
-        /// Обновление данных при выборе товара в ItemsListBox
+        /// Обрабатывает событие изменения выбранного товара в списке.
+        /// Обновляет отображаемые данные в соответствии с выбранным товаром.
         /// </summary>
         private void ItemsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
