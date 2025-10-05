@@ -21,7 +21,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <summary>
         /// Выбранный покупатель
         /// </summary>
-        private Customer _currentCustomer;
+        private Customer? _currentCustomer;
 
         public CustomersTab()
         {
@@ -101,6 +101,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         private void FullNameTextBox_TextChanged_1(object sender, EventArgs e)
         {
+            if (_currentCustomer == null) return;
             try
             {
                 ValueValidator.AssertStringOnlengs(FullNameTextBox.Text, 200, "Название");
@@ -122,7 +123,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         private void AddressTextBox_TextChanged_1(object sender, EventArgs e)
         {
-
+            if (_currentCustomer == null) return;
             try
             {
                 ValueValidator.AssertStringOnlengs(AddressTextBox.Text, 500, "Адрес");

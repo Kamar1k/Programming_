@@ -22,7 +22,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <summary>
         /// Выбранный товар
         /// </summary>
-        private Item _currentItem;
+        private Item? _currentItem;
 
         public ItemsTab()
         {
@@ -70,6 +70,12 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="item">Товар, данные которого отображаются.</param>
         private void UpdateTextBoxes(Item item)
         {
+            if (item == null)
+            {
+                ClearTextBoxes();
+                return;
+            }
+
             IDTextBox.Text = item.ID.ToString();
             CostTextBox.Text = item.Cost.ToString();
             NameTextBox.Text = item.Name;
@@ -94,6 +100,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         private void CostTextBox_TextChanged(object sender, EventArgs e)
         {
+            if (_currentItem == null) return; 
 
             if (CostTextBox.Text == "")
             {
@@ -120,6 +127,8 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         private void NameTextBox_TextChanged(object sender, EventArgs e)
         {
+            if (_currentItem == null) return;
+
             try
             {
                 ValueValidator.AssertStringOnlengs(NameTextBox.Text, 200, "Название");
@@ -142,6 +151,8 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         private void DescriptionTextBox_TextChanged(object sender, EventArgs e)
         {
+            if (_currentItem == null) return;
+
             try
             {
                 ValueValidator.AssertStringOnlengs(DescriptionTextBox.Text, 1000, "Описание");
