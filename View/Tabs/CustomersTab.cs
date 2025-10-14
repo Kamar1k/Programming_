@@ -104,7 +104,7 @@ namespace ObjectOrientedPractics.View.Tabs
             if (_currentCustomer == null) return;
             try
             {
-                ValueValidator.AssertStringOnlengs(FullNameTextBox.Text, 200, "Название");
+
                 _currentCustomer.FullName = FullNameTextBox.Text;
                 int index = _customers.IndexOf(_currentCustomer);
                 if (index != -1 && index < CustomersListBox.Items.Count)
@@ -126,7 +126,7 @@ namespace ObjectOrientedPractics.View.Tabs
             if (_currentCustomer == null) return;
             try
             {
-                ValueValidator.AssertStringOnlengs(AddressTextBox.Text, 500, "Адрес");
+
                 _currentCustomer.Address = AddressTextBox.Text;
             }
             catch (ArgumentException ex)

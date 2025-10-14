@@ -9,7 +9,7 @@ namespace ObjectOrientedPractics.Services
     /// <summary>
     /// Класс валидации
     /// </summary>
-    internal class ValueValidator
+    internal static class ValueValidator
     {
         /// <summary>
         /// Проверяет, что длина строки не превышает максимально допустимую длину maxLength

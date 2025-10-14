@@ -111,7 +111,6 @@ namespace ObjectOrientedPractics.View.Tabs
             try
             {
                 double cost = Convert.ToDouble(CostTextBox.Text);
-                ValueValidator.AssertValueInRange(cost, 0, 100000, "Стоимость");
                 _currentItem.Cost = cost;
             }
 
@@ -131,7 +130,6 @@ namespace ObjectOrientedPractics.View.Tabs
 
             try
             {
-                ValueValidator.AssertStringOnlengs(NameTextBox.Text, 200, "Название");
                 _currentItem.Name = NameTextBox.Text;
                 int index = _items.IndexOf(_currentItem);
                 if (index != -1 && index < ItemsListBox.Items.Count)
@@ -155,7 +153,6 @@ namespace ObjectOrientedPractics.View.Tabs
 
             try
             {
-                ValueValidator.AssertStringOnlengs(DescriptionTextBox.Text, 1000, "Описание");
                 _currentItem.Info = DescriptionTextBox.Text;
             }
             catch (ArgumentException ex)
