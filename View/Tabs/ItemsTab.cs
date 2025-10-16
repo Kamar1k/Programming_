@@ -1,5 +1,4 @@
-﻿using ObjectOrientedPractics.Enums;
-using ObjectOrientedPractics.Model;
+﻿using ObjectOrientedPractics.Model;
 using ObjectOrientedPractics.Services;
 using System;
 using System.Collections.Generic;
@@ -26,6 +25,19 @@ namespace ObjectOrientedPractics.View.Tabs
         private Item? _currentItem;
 
         /// <summary>
+        /// Возвращает или задает список товаров вкладки.
+        /// </summary>
+        public List<Item> Items
+        {
+            get { return _items; }
+            set
+            {
+                _items = value;
+                UpdateItemsListBox();
+            }
+        }
+
+        /// <summary>
         /// Конструктор вкладки управления товарами.
         /// Инициализирует компоненты и заполняет выпадающий список категорий.
         /// </summary>
@@ -37,6 +49,18 @@ namespace ObjectOrientedPractics.View.Tabs
             foreach (var category in categores)
             {
                 CategoryComboBox.Items.Add(category);
+            }
+        }
+
+        /// <summary>
+        /// Обновляет список товаров в ListBox.
+        /// </summary>
+        private void UpdateItemsListBox()
+        {
+            ItemsListBox.Items.Clear();
+            foreach (var item in _items)
+            {
+                ItemsListBox.Items.Add(item.Name);
             }
         }
 
@@ -207,10 +231,10 @@ namespace ObjectOrientedPractics.View.Tabs
             }
             catch (InvalidCastException)
             {
-                MessageBox.Show("Пожалуйста, выберите корректную категорию.",
-                             "Неверная категория",
+                MessageBox.Show("Пожалуйста, выберите корректную категорию.","Неверная категория",
                              MessageBoxButtons.OK,
                              MessageBoxIcon.Error);
+
             }
         }
     }

@@ -25,6 +25,32 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         private Customer? _currentCustomer;
 
+
+        /// <summary>
+        /// Возвращает или задает список покупателей вкладки.
+        /// </summary>
+        public List<Customer> Customers
+        {
+            get { return _customers; }
+            set
+            {
+                _customers = value;
+                UpdateCustomersListBox();
+            }
+        }
+
+        /// <summary>
+        /// Обновляет список покупателей в ListBox.
+        /// </summary>
+        private void UpdateCustomersListBox()
+        {
+            CustomersListBox.Items.Clear();
+            foreach (var customer in _customers)
+            {
+                CustomersListBox.Items.Add(customer.FullName);
+            }
+        }
+
         public CustomersTab()
         {
             InitializeComponent();

@@ -1,5 +1,4 @@
-﻿using ObjectOrientedPractics.Enums;
-using ObjectOrientedPractics.Services;
+﻿using ObjectOrientedPractics.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +10,7 @@ namespace ObjectOrientedPractics.Model
     /// <summary>
     /// Класс товара
     /// </summary>
-    internal class Item
+    public class Item
     {
 
         /// <summary>
