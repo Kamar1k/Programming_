@@ -30,7 +30,7 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Адрес доставки
         /// </summary>
-        private string _address;
+        private Address _address;
 
         /// <summary>
         /// Свойство поля _id
@@ -56,14 +56,10 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Свойство поля _address
         /// </summary>
-        public string Address
+        public Address Address
         {
             get { return _address; }
-            set
-            {
-                ValueValidator.AssertStringOnlengs(value, 500, nameof(Address));
-                _address = value;
-            }
+            set { _address = value; }
         }
 
         /// <summary>
@@ -71,7 +67,7 @@ namespace ObjectOrientedPractics.Model
         /// </summary>
         /// <param name="fullname">Полное имя покупателя</param>
         /// <param name="address">Адрес доставки для покупателя</param>
-        public Customer(string fullname, string address)
+        public Customer(string fullname, Address address)
         {
             _IDCount++;
             _id = _IDCount;

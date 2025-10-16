@@ -45,8 +45,8 @@
             panel3 = new Panel();
             panel1 = new Panel();
             RemoveButton = new Button();
-            label7 = new Label();
             CategoryComboBox = new ComboBox();
+            label7 = new Label();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -161,7 +161,7 @@
             // 
             // NameTextBox
             // 
-            NameTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            NameTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             NameTextBox.Location = new Point(3, 153);
             NameTextBox.MinimumSize = new Size(230, 73);
             NameTextBox.Multiline = true;
@@ -240,15 +240,6 @@
             RemoveButton.UseVisualStyleBackColor = true;
             RemoveButton.Click += RemoveButton_Click;
             // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(3, 98);
-            label7.Name = "label7";
-            label7.Size = new Size(58, 15);
-            label7.TabIndex = 9;
-            label7.Text = "Category:";
-            // 
             // CategoryComboBox
             // 
             CategoryComboBox.FormattingEnabled = true;
@@ -257,6 +248,15 @@
             CategoryComboBox.Size = new Size(135, 23);
             CategoryComboBox.TabIndex = 10;
             CategoryComboBox.SelectedIndexChanged += CategoryComboBox_SelectedIndexChanged;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(3, 98);
+            label7.Name = "label7";
+            label7.Size = new Size(58, 15);
+            label7.TabIndex = 9;
+            label7.Text = "Category:";
             // 
             // ItemsTab
             // 

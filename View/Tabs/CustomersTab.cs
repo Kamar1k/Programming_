@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ObjectOrientedPractics.Model;
+using ObjectOrientedPractics.Services;
+using ObjectOrientedPractics.View.Controls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,8 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ObjectOrientedPractics.Model;
-using ObjectOrientedPractics.Services;
+
 namespace ObjectOrientedPractics.View.Tabs
 {
     public partial class CustomersTab : UserControl
@@ -33,7 +35,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         private void AddButton_Click_1(object sender, EventArgs e)
         {
-            _currentCustomer = new Customer("None", "None");
+            _currentCustomer = new Customer("None", new Address());
             _customers.Add(_currentCustomer);
             CustomersListBox.Items.Add(_currentCustomer.FullName);
             CustomersListBox.SelectedIndex = _customers.Count - 1;
@@ -70,7 +72,7 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             IDTextBox.Clear();
             FullNameTextBox.Clear();
-            AddressTextBox.Clear();
+            AddressControl.ClearInfo();
             _currentCustomer = null;
         }
 
@@ -82,7 +84,7 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             IDTextBox.Text = customer.ID.ToString();
             FullNameTextBox.Text = customer.FullName;
-            AddressTextBox.Text = customer.Address;
+            AddressControl.UpdateTextBoxes(customer.Address);
         }
 
         /// <summary>
@@ -111,23 +113,6 @@ namespace ObjectOrientedPractics.View.Tabs
                 {
                     CustomersListBox.Items[index] = _currentCustomer.FullName;
                 }
-            }
-            catch (ArgumentException ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка валидации", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-
-        /// <summary>
-        /// Обрабатывает изменение текста в поле адреса покупателя.
-        /// </summary>
-        private void AddressTextBox_TextChanged_1(object sender, EventArgs e)
-        {
-            if (_currentCustomer == null) return;
-            try
-            {
-                ValueValidator.AssertStringOnlengs(AddressTextBox.Text, 500, "Адрес");
-                _currentCustomer.Address = AddressTextBox.Text;
             }
             catch (ArgumentException ex)
             {

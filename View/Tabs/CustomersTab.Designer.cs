@@ -28,10 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Model.Address address1 = new Model.Address();
             CustomersListBox = new ListBox();
             label1 = new Label();
-            label5 = new Label();
-            AddressTextBox = new TextBox();
             label4 = new Label();
             FullNameTextBox = new TextBox();
             IDTextBox = new TextBox();
@@ -43,6 +42,7 @@
             panel1 = new Panel();
             AddButton = new Button();
             panel2 = new Panel();
+            AddressControl = new ObjectOrientedPractics.View.Controls.AddressControl();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -72,26 +72,6 @@
             label1.Size = new Size(66, 15);
             label1.TabIndex = 1;
             label1.Text = "Customers";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(3, 83);
-            label5.Name = "label5";
-            label5.Size = new Size(52, 15);
-            label5.TabIndex = 10;
-            label5.Text = "Address:";
-            // 
-            // AddressTextBox
-            // 
-            AddressTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            AddressTextBox.Location = new Point(72, 80);
-            AddressTextBox.MinimumSize = new Size(135, 23);
-            AddressTextBox.Multiline = true;
-            AddressTextBox.Name = "AddressTextBox";
-            AddressTextBox.Size = new Size(393, 89);
-            AddressTextBox.TabIndex = 9;
-            AddressTextBox.TextChanged += AddressTextBox_TextChanged_1;
             // 
             // label4
             // 
@@ -155,10 +135,9 @@
             // 
             // splitContainer1.Panel2
             // 
+            splitContainer1.Panel2.Controls.Add(AddressControl);
             splitContainer1.Panel2.Controls.Add(label2);
-            splitContainer1.Panel2.Controls.Add(label5);
             splitContainer1.Panel2.Controls.Add(label3);
-            splitContainer1.Panel2.Controls.Add(AddressTextBox);
             splitContainer1.Panel2.Controls.Add(label4);
             splitContainer1.Panel2.Controls.Add(FullNameTextBox);
             splitContainer1.Panel2.Controls.Add(IDTextBox);
@@ -214,6 +193,20 @@
             panel2.Size = new Size(101, 41);
             panel2.TabIndex = 8;
             // 
+            // AddressControl
+            // 
+            address1.Apartment = "None";
+            address1.Building = "None";
+            address1.City = "None";
+            address1.Country = "None";
+            address1.Index = 100000;
+            address1.Street = "None";
+            AddressControl.Address = address1;
+            AddressControl.Location = new Point(-3, 80);
+            AddressControl.Name = "AddressControl";
+            AddressControl.Size = new Size(468, 182);
+            AddressControl.TabIndex = 11;
+            // 
             // CustomersTab
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -240,13 +233,12 @@
         private TextBox IDTextBox;
         private TextBox FullNameTextBox;
         private Label label4;
-        private Label label5;
-        private TextBox AddressTextBox;
         private SplitContainer splitContainer1;
         private Panel panel2;
         private Panel panel1;
         private Panel panel3;
         private Button RemoveButton;
         private Button AddButton;
+        private Controls.AddressControl AddressControl;
     }
 }
