@@ -1,9 +1,10 @@
-﻿using System;
+﻿using ObjectOrientedPractics.Enums;
+using ObjectOrientedPractics.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ObjectOrientedPractics.Services;
 
 namespace ObjectOrientedPractics.Model
 {
@@ -86,18 +87,25 @@ namespace ObjectOrientedPractics.Model
         }
 
         /// <summary>
+        /// Категория товара.
+        /// </summary>
+        public Category Category { get; set; }  // Тип должен быть Category, а не string
+
+        /// <summary>
         /// Конструктор класса Item
         /// </summary>
         /// <param name="name">Название товара</param>
         /// <param name="info">Описание товара</param>
         /// <param name="cost">Стоимость товара</param>
-        public Item(string name, string info, double cost)
+        /// <param name="category">Категория товара</param>
+        public Item(string name, string info, double cost, Category category)
         {
             _IDCount++;
             _id = _IDCount;
             _name = name;
             _info = info;
             _cost = cost;
+            Category = category;
         }
     }
 }

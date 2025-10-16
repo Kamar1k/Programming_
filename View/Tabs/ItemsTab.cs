@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ObjectOrientedPractics.Enums;
+using ObjectOrientedPractics.Model;
+using ObjectOrientedPractics.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,8 +10,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ObjectOrientedPractics.Model;
-using ObjectOrientedPractics.Services;
 
 namespace ObjectOrientedPractics.View.Tabs
 {
@@ -24,9 +25,19 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         private Item? _currentItem;
 
+        /// <summary>
+        /// Конструктор вкладки управления товарами.
+        /// Инициализирует компоненты и заполняет выпадающий список категорий.
+        /// </summary>
         public ItemsTab()
         {
             InitializeComponent();
+
+            var categores = Enum.GetValues(typeof(Category));
+            foreach (var category in categores)
+            {
+                CategoryComboBox.Items.Add(category);
+            }
         }
 
         /// <summary>
@@ -34,7 +45,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         private void AddButton_Click(object sender, EventArgs e)
         {
-            _currentItem = new Item("None", "None", 0);
+            _currentItem = new Item("None", "None", 0, Category.Electronics);
             _items.Add(_currentItem);
             ItemsListBox.Items.Add(_currentItem.Name);
             ItemsListBox.SelectedIndex = _items.Count - 1;
@@ -61,14 +72,17 @@ namespace ObjectOrientedPractics.View.Tabs
                 ItemsListBox.SelectedIndex = -1;
                 ClearTextBoxes();
                 _currentItem = null;
+                return;
             }
+
+            UpdateTextBoxes(_currentItem);
         }
 
         /// <summary>
         /// Обновляет значения текстовых полей данными указанного товара.
         /// </summary>
         /// <param name="item">Товар, данные которого отображаются.</param>
-        private void UpdateTextBoxes(Item item)
+        private void UpdateTextBoxes(Item? item)
         {
             if (item == null)
             {
@@ -80,6 +94,7 @@ namespace ObjectOrientedPractics.View.Tabs
             CostTextBox.Text = item.Cost.ToString();
             NameTextBox.Text = item.Name;
             DescriptionTextBox.Text = item.Info;
+            CategoryComboBox.SelectedItem = item.Category;
         }
 
         /// <summary>
@@ -100,7 +115,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         private void CostTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (_currentItem == null) return; 
+            if (_currentItem == null) return;
 
             if (CostTextBox.Text == "")
             {
@@ -111,7 +126,6 @@ namespace ObjectOrientedPractics.View.Tabs
             try
             {
                 double cost = Convert.ToDouble(CostTextBox.Text);
-                ValueValidator.AssertValueInRange(cost, 0, 100000, "Стоимость");
                 _currentItem.Cost = cost;
             }
 
@@ -174,6 +188,30 @@ namespace ObjectOrientedPractics.View.Tabs
             if (index == -1) return;
             _currentItem = _items[index];
             UpdateTextBoxes(_currentItem);
+        }
+
+        /// <summary>
+        /// Обрабатывает изменение выбранной категории товара.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Данные события.</param>
+        private void CategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ItemsListBox.SelectedIndex == -1 || _currentItem == null) return;
+
+            if (CategoryComboBox.SelectedItem == null) return;
+
+            try
+            {
+                _currentItem.Category = (Category)CategoryComboBox.SelectedItem;
+            }
+            catch (InvalidCastException)
+            {
+                MessageBox.Show("Пожалуйста, выберите корректную категорию.",
+                             "Неверная категория",
+                             MessageBoxButtons.OK,
+                             MessageBoxIcon.Error);
+            }
         }
     }
 }
