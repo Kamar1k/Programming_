@@ -33,6 +33,16 @@ namespace ObjectOrientedPractics.Model
         private Address _address;
 
         /// <summary>
+        /// Корзина товаров покупателя.
+        /// </summary>
+        private Cart _cart;
+
+        /// <summary>
+        /// Список заказов покупателя.
+        /// </summary>
+        private List<Order> _orders;
+
+        /// <summary>
         /// Свойство поля _id
         /// </summary>
         public int ID
@@ -63,15 +73,37 @@ namespace ObjectOrientedPractics.Model
         }
 
         /// <summary>
+        /// Возвращает и задает корзину товаров покупателя.
+        /// </summary>
+        public Cart Cart
+        {
+            get { return _cart; }
+            set { _cart = value; }
+        }
+
+        /// <summary>
+        /// Возвращает и задает список заказов покупателя.
+        /// </summary>
+        public List<Order> Orders
+        {
+            get { return _orders; }
+            set { _orders = value; }
+        }
+
+        /// <summary>
         /// Консруктор класса Customer
         /// </summary>
         /// <param name="fullname">Полное имя покупателя</param>
+        /// _cart // КОМПОЗИЦИЯ - корзина создается вместе с покупателем
+        /// _orders // КОМПОЗИЦИЯ - список заказов создается вместе с покупателем
         public Customer(string fullname)
         {
             _IDCount++;
             _id = _IDCount;
             _fullname = fullname;
             _address = new Address();
+            _cart = new Cart(); 
+            _orders = new List<Order>();
         }
     }
 }
