@@ -41,7 +41,7 @@ namespace ObjectOrientedPractics.Model
         }
 
         /// <summary>
-        /// Свойство поля _fullname
+        /// Свойство поля  _fullname
         /// </summary>
         public string FullName
         {
