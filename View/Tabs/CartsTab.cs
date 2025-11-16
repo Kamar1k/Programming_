@@ -6,6 +6,9 @@ using System.Windows.Forms;
 
 namespace ObjectOrientedPractics.View.Tabs
 {
+    /// <summary>
+    /// Вкладка для управления корзинами покупателей.
+    /// </summary>
     public partial class CartsTab : UserControl
     {
         /// <summary>
@@ -24,7 +27,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private List<Customer> _customers = new();
 
         /// <summary>
-        /// Создаёт экзампляр класса <see cref="CartsTab"/>.
+        /// Создаёт экземпляр класса <see cref="CartsTab"/>.
         /// </summary>
         public CartsTab()
         {
@@ -173,6 +176,11 @@ namespace ObjectOrientedPractics.View.Tabs
             UpdateAmountLabel();
         }
 
+        /// <summary>
+        /// Обработчик изменения выбранного покупателя в выпадающем списке.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Данные события.</param>
         private void CustomersComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateCartListBox(CustomersComboBox.SelectedIndex);
@@ -182,6 +190,11 @@ namespace ObjectOrientedPractics.View.Tabs
             _currentCustomer = Customers[CustomersComboBox.SelectedIndex];
         }
 
+        /// <summary>
+        /// Обработчик нажатия кнопки добавления товара в корзину.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Данные события.</param>
         private void AddToCartButton_Click(object sender, EventArgs e)
         {
             if (ItemsListBox.SelectedIndex == -1 || _currentCustomer == null) return;
@@ -190,6 +203,11 @@ namespace ObjectOrientedPractics.View.Tabs
             UpdateCartListBox(CustomersComboBox.SelectedIndex);
         }
 
+        /// <summary>
+        /// Обработчик нажатия кнопки удаления товара из корзины.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Данные события.</param>
         private void RemoveItemButton_Click(object sender, EventArgs e)
         {
             if (CartListBox.SelectedIndex == -1 || _currentCustomer == null) return;
@@ -198,6 +216,11 @@ namespace ObjectOrientedPractics.View.Tabs
             UpdateCartListBox(CustomersComboBox.SelectedIndex);
         }
 
+        /// <summary>
+        /// Обработчик нажатия кнопки очистки корзины.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Данные события.</param>
         private void ClearCartButton_Click(object sender, EventArgs e)
         {
             if (_currentCustomer == null) return;
@@ -206,6 +229,11 @@ namespace ObjectOrientedPractics.View.Tabs
             UpdateCartListBox(CustomersComboBox.SelectedIndex);
         }
 
+        /// <summary>
+        /// Обработчик нажатия кнопки создания заказа.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Данные события.</param>
         private void CreateOrderButton_Click(object sender, EventArgs e)
         {
             if (_currentCustomer == null) return;
