@@ -61,7 +61,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         private void AddButton_Click_1(object sender, EventArgs e)
         {
-            _currentCustomer = new Customer("None", new Address());
+            _currentCustomer = new Customer("None");
             _customers.Add(_currentCustomer);
             CustomersListBox.Items.Add(_currentCustomer.FullName);
             CustomersListBox.SelectedIndex = _customers.Count - 1;
@@ -110,7 +110,8 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             IDTextBox.Text = customer.ID.ToString();
             FullNameTextBox.Text = customer.FullName;
-            AddressControl.UpdateTextBoxes(customer.Address);
+
+            AddressControl.Address = customer.Address;
         }
 
         /// <summary>

@@ -16,7 +16,7 @@ namespace ObjectOrientedPractics.View.Controls
         /// <summary>
         /// Текущий адрес, связанный с элементом управления.
         /// </summary>
-        private Address _address = new Address();
+        private Address _address;
 
         /// <summary>
         /// Возвращает или задает текущий адрес.
@@ -27,8 +27,11 @@ namespace ObjectOrientedPractics.View.Controls
             get { return _address; }
             set
             {
-                _address = value;
-                UpdateTextBoxes(_address);
+                _address = value; 
+                if (_address != null)
+                {
+                    UpdateTextBoxes(_address);
+                }
             }
         }
 

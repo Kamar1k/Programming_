@@ -66,13 +66,12 @@ namespace ObjectOrientedPractics.Model
         /// Консруктор класса Customer
         /// </summary>
         /// <param name="fullname">Полное имя покупателя</param>
-        /// <param name="address">Адрес доставки для покупателя</param>
-        public Customer(string fullname, Address address)
+        public Customer(string fullname)
         {
             _IDCount++;
             _id = _IDCount;
             _fullname = fullname;
-            _address = address;
+            _address = new Address();
         }
     }
 }
