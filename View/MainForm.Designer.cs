@@ -29,26 +29,34 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            tabControl1 = new TabControl();
+            tab1Paget = new TabControl();
             tabPage1 = new TabPage();
             ItemsTab = new ObjectOrientedPractics.View.Tabs.ItemsTab();
             tabPage2 = new TabPage();
             CustomersTab = new ObjectOrientedPractics.View.Tabs.CustomersTab();
-            tabControl1.SuspendLayout();
+            Carts = new TabPage();
+            Orders = new TabPage();
+            cartsTab1 = new ObjectOrientedPractics.View.Tabs.CartsTab();
+            ordersTab1 = new ObjectOrientedPractics.View.Tabs.OrdersTab();
+            tab1Paget.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
+            Carts.SuspendLayout();
+            Orders.SuspendLayout();
             SuspendLayout();
             // 
-            // tabControl1
+            // tab1Paget
             // 
-            tabControl1.Controls.Add(tabPage1);
-            tabControl1.Controls.Add(tabPage2);
-            tabControl1.Dock = DockStyle.Fill;
-            tabControl1.Location = new Point(0, 0);
-            tabControl1.Name = "tabControl1";
-            tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(800, 450);
-            tabControl1.TabIndex = 0;
+            tab1Paget.Controls.Add(tabPage1);
+            tab1Paget.Controls.Add(tabPage2);
+            tab1Paget.Controls.Add(Carts);
+            tab1Paget.Controls.Add(Orders);
+            tab1Paget.Dock = DockStyle.Fill;
+            tab1Paget.Location = new Point(0, 0);
+            tab1Paget.Name = "tab1Paget";
+            tab1Paget.SelectedIndex = 0;
+            tab1Paget.Size = new Size(800, 450);
+            tab1Paget.TabIndex = 0;
             // 
             // tabPage1
             // 
@@ -88,27 +96,72 @@
             CustomersTab.Size = new Size(786, 416);
             CustomersTab.TabIndex = 0;
             // 
+            // Carts
+            // 
+            Carts.Controls.Add(cartsTab1);
+            Carts.Location = new Point(4, 24);
+            Carts.Name = "Carts";
+            Carts.Padding = new Padding(3);
+            Carts.Size = new Size(792, 422);
+            Carts.TabIndex = 2;
+            Carts.Text = "Carts";
+            Carts.UseVisualStyleBackColor = true;
+            // 
+            // Orders
+            // 
+            Orders.Controls.Add(ordersTab1);
+            Orders.Location = new Point(4, 24);
+            Orders.Name = "Orders";
+            Orders.Padding = new Padding(3);
+            Orders.Size = new Size(792, 422);
+            Orders.TabIndex = 3;
+            Orders.Text = "Orders";
+            Orders.UseVisualStyleBackColor = true;
+            // 
+            // cartsTab1
+            // 
+            cartsTab1.Dock = DockStyle.Fill;
+            cartsTab1.Location = new Point(3, 3);
+            cartsTab1.Name = "cartsTab1";
+            cartsTab1.Size = new Size(786, 416);
+            cartsTab1.TabIndex = 0;
+            // 
+            // ordersTab1
+            // 
+            ordersTab1.Customers = null;
+            ordersTab1.Dock = DockStyle.Fill;
+            ordersTab1.Location = new Point(3, 3);
+            ordersTab1.Name = "ordersTab1";
+            ordersTab1.Size = new Size(786, 416);
+            ordersTab1.TabIndex = 0;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(tabControl1);
+            Controls.Add(tab1Paget);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainForm";
             Text = "ObjectOrientedPractics";
-            tabControl1.ResumeLayout(false);
+            tab1Paget.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage2.ResumeLayout(false);
+            Carts.ResumeLayout(false);
+            Orders.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private TabControl tabControl1;
+        private TabControl tab1Paget;
         private TabPage tabPage1;
         private View.Tabs.ItemsTab ItemsTab;
         private TabPage tabPage2;
         private View.Tabs.CustomersTab CustomersTab;
+        private TabPage Carts;
+        private TabPage Orders;
+        private View.Tabs.CartsTab cartsTab1;
+        private View.Tabs.OrdersTab ordersTab1;
     }
 }
