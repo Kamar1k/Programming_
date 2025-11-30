@@ -23,6 +23,7 @@ namespace ObjectOrientedPractics.View.Tabs
 
         public PriorityOrdersTab()
         {
+
             InitializeComponent();
 
             _currentPriorityOrder = new PriorityOrder();
@@ -154,5 +155,6 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             CreateNewPriorityOrder();
         }
+            
     }
 }
