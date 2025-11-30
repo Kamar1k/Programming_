@@ -42,12 +42,16 @@
             customersBindingSource = new BindingSource(components);
             SplitContainer = new SplitContainer();
             OrdersDataGridView = new DataGridView();
+            PriorityColumn = new DataGridViewTextBoxColumn();
             Id = new DataGridViewTextBoxColumn();
             OrderDateColumn = new DataGridViewTextBoxColumn();
             OrderStatus = new DataGridViewTextBoxColumn();
             CustomerFullName = new DataGridViewTextBoxColumn();
             DeliveryAddress = new DataGridViewTextBoxColumn();
             Amount = new DataGridViewTextBoxColumn();
+            PriorityOptionsPanel = new Panel();
+            DeliveryTimeLabel = new Label();
+            DeliveryTimeComboBox = new ComboBox();
             OrderStatusComboBox = new ComboBox();
             OrderDateTextBox = new TextBox();
             OrderIdTextBox = new TextBox();
@@ -74,6 +78,7 @@
             SplitContainer.Panel2.SuspendLayout();
             SplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)OrdersDataGridView).BeginInit();
+            PriorityOptionsPanel.SuspendLayout();
             SuspendLayout();
             // 
             // OrdersLabel
@@ -138,6 +143,7 @@
             // 
             // SplitContainer.Panel2
             // 
+            SplitContainer.Panel2.Controls.Add(PriorityOptionsPanel);
             SplitContainer.Panel2.Controls.Add(OrderStatusComboBox);
             SplitContainer.Panel2.Controls.Add(OrderDateTextBox);
             SplitContainer.Panel2.Controls.Add(OrderIdTextBox);
@@ -160,13 +166,20 @@
             OrdersDataGridView.AllowUserToDeleteRows = false;
             OrdersDataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             OrdersDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            OrdersDataGridView.Columns.AddRange(new DataGridViewColumn[] { Id, OrderDateColumn, OrderStatus, CustomerFullName, DeliveryAddress, Amount });
+            OrdersDataGridView.Columns.AddRange(new DataGridViewColumn[] { PriorityColumn, Id, OrderDateColumn, OrderStatus, CustomerFullName, DeliveryAddress, Amount });
             OrdersDataGridView.Location = new Point(3, 18);
             OrdersDataGridView.Name = "OrdersDataGridView";
             OrdersDataGridView.ReadOnly = true;
             OrdersDataGridView.Size = new Size(500, 543);
             OrdersDataGridView.TabIndex = 1;
             OrdersDataGridView.SelectionChanged += OrdersDataGridView_SelectionChanged;
+            // 
+            // PriorityColumn
+            // 
+            PriorityColumn.HeaderText = "";
+            PriorityColumn.Name = "PriorityColumn";
+            PriorityColumn.ReadOnly = true;
+            PriorityColumn.Width = 30;
             // 
             // Id
             // 
@@ -210,6 +223,34 @@
             Amount.ReadOnly = true;
             Amount.Width = 75;
             // 
+            // PriorityOptionsPanel
+            // 
+            PriorityOptionsPanel.Controls.Add(DeliveryTimeLabel);
+            PriorityOptionsPanel.Controls.Add(DeliveryTimeComboBox);
+            PriorityOptionsPanel.Location = new Point(205, 0);
+            PriorityOptionsPanel.Name = "PriorityOptionsPanel";
+            PriorityOptionsPanel.Size = new Size(150, 100);
+            PriorityOptionsPanel.TabIndex = 16;
+            PriorityOptionsPanel.Visible = false;
+            // 
+            // DeliveryTimeLabel
+            // 
+            DeliveryTimeLabel.AutoSize = true;
+            DeliveryTimeLabel.Location = new Point(3, 5);
+            DeliveryTimeLabel.Name = "DeliveryTimeLabel";
+            DeliveryTimeLabel.Size = new Size(80, 15);
+            DeliveryTimeLabel.TabIndex = 1;
+            DeliveryTimeLabel.Text = "Delivery Time:";
+            // 
+            // DeliveryTimeComboBox
+            // 
+            DeliveryTimeComboBox.FormattingEnabled = true;
+            DeliveryTimeComboBox.Location = new Point(3, 23);
+            DeliveryTimeComboBox.Name = "DeliveryTimeComboBox";
+            DeliveryTimeComboBox.Size = new Size(121, 23);
+            DeliveryTimeComboBox.TabIndex = 0;
+            DeliveryTimeComboBox.SelectedIndexChanged += DeliveryTimeComboBox_SelectedIndexChanged;
+            // 
             // OrderStatusComboBox
             // 
             OrderStatusComboBox.FormattingEnabled = true;
@@ -239,7 +280,7 @@
             // 
             AmountLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             AmountLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            AmountLabel.Location = new Point(3, 431);
+            AmountLabel.Location = new Point(3, 423);
             AmountLabel.Name = "AmountLabel";
             AmountLabel.RightToLeft = RightToLeft.No;
             AmountLabel.Size = new Size(533, 35);
@@ -251,7 +292,7 @@
             // 
             AmountTextLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             AmountTextLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            AmountTextLabel.Location = new Point(3, 416);
+            AmountTextLabel.Location = new Point(6, 408);
             AmountTextLabel.Name = "AmountTextLabel";
             AmountTextLabel.Size = new Size(533, 15);
             AmountTextLabel.TabIndex = 11;
@@ -260,7 +301,7 @@
             // 
             // OrderItemsListBox
             // 
-            OrderItemsListBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            OrderItemsListBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             OrderItemsListBox.FormattingEnabled = true;
             OrderItemsListBox.ItemHeight = 15;
             OrderItemsListBox.Location = new Point(3, 300);
@@ -353,6 +394,8 @@
             ((System.ComponentModel.ISupportInitialize)SplitContainer).EndInit();
             SplitContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)OrdersDataGridView).EndInit();
+            PriorityOptionsPanel.ResumeLayout(false);
+            PriorityOptionsPanel.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -388,5 +431,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CustomerFullName;
         private System.Windows.Forms.DataGridViewTextBoxColumn DeliveryAddress;
         private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
+        private System.Windows.Forms.Panel PriorityOptionsPanel;
+        private System.Windows.Forms.Label DeliveryTimeLabel;
+        private System.Windows.Forms.ComboBox DeliveryTimeComboBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityColumn;
     }
 }

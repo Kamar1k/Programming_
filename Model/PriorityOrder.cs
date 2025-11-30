@@ -10,6 +10,19 @@ namespace ObjectOrientedPractics.Model
     public class PriorityOrder : Order
     {
         /// <summary>
+        /// Допустимые значения времени доставки.
+        /// </summary>
+        private static readonly string[] _validTimes =
+        {
+            "9:00 - 11:00",
+            "11:00 - 13:00",
+            "13:00 - 15:00",
+            "15:00 - 17:00",
+            "17:00 - 19:00",
+            "19:00 - 21:00"
+        };
+
+        /// <summary>
         /// Желаемая дата доставки.
         /// </summary>
         private DateTime _desiredDeliveryDate;
@@ -25,7 +38,7 @@ namespace ObjectOrientedPractics.Model
         public PriorityOrder() : base()
         {
             _desiredDeliveryDate = DateTime.Now;
-            _deliveryTime = "9:00 - 11:00";
+            _deliveryTime = "9:00 - 11:00"; // Значение по умолчанию
         }
 
         /// <summary>
@@ -36,10 +49,10 @@ namespace ObjectOrientedPractics.Model
         /// <param name="desiredDeliveryDate">Желаемая дата доставки.</param>
         /// <param name="deliveryTime">Время доставки.</param>
         public PriorityOrder(Address address, List<Item> items, DateTime desiredDeliveryDate, string deliveryTime)
-            : base(address, items) // Вызываем конструктор Order с 2 параметрами
+            : base(address, items)
         {
             DesiredDeliveryDate = desiredDeliveryDate;
-            DeliveryTime = deliveryTime;
+            DeliveryTime = deliveryTime; // Валидация выполняется в свойстве
         }
 
         /// <summary>
@@ -59,24 +72,23 @@ namespace ObjectOrientedPractics.Model
             get => _deliveryTime;
             set
             {
-                // Валидация времени доставки
-                var validTimes = new[]
+                if (value != null && Array.IndexOf(_validTimes, value) == -1)
                 {
-                    "9:00 - 11:00",
-                    "11:00 - 13:00",
-                    "13:00 - 15:00",
-                    "15:00 - 17:00",
-                    "17:00 - 19:00",
-                    "19:00 - 21:00"
-                };
-
-                if (value != null && Array.IndexOf(validTimes, value) == -1)
-                {
-                    throw new ArgumentException("Недоприемлемое время доставки");
+                    throw new ArgumentException("Недопустимое время доставки. " +
+                        "Допустимые значения: 9:00-11:00, 11:00-13:00, 13:00-15:00, " +
+                        "15:00-17:00, 17:00-19:00, 19:00-21:00");
                 }
 
                 _deliveryTime = value;
             }
+        }
+
+        /// <summary>
+        /// Возвращает массив допустимых значений времени доставки.
+        /// </summary>
+        public static string[] GetValidDeliveryTimes()
+        {
+            return (string[])_validTimes.Clone();
         }
     }
 }

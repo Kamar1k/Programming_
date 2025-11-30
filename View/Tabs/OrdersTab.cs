@@ -24,6 +24,24 @@ namespace ObjectOrientedPractics.View.Tabs
         private Order _currentOrder;
 
         /// <summary>
+        /// Текущий приоритетный заказ.
+        /// </summary>
+        private PriorityOrder _currentPriorityOrder;
+
+        /// <summary>
+        /// Время доставки.
+        /// </summary>
+        private string[] _deliveryTime =
+        {
+            "9:00 - 11:00",
+            "11:00 - 13:00",
+            "13:00 - 15:00",
+            "15:00 - 17:00",
+            "17:00 - 19:00",
+            "19:00 - 21:00"
+        };
+
+        /// <summary>
         /// Создаёт экземпляр класса <see cref="OrdersTab"/>.
         /// </summary>
         public OrdersTab()
@@ -34,6 +52,14 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 OrderStatusComboBox.Items.Add(status);
             }
+
+            // Инициализация ComboBox для времени доставки
+            foreach (var time in _deliveryTime)
+            {
+                DeliveryTimeComboBox.Items.Add(time);
+            }
+
+            PriorityOptionsPanel.Visible = false;
         }
 
         /// <summary>
@@ -79,7 +105,11 @@ namespace ObjectOrientedPractics.View.Tabs
                         $"{order.Address.Index}, {order.Address.City}, {order.Address.Street}" :
                         "Адрес не указан";
 
+                    // Добавляем звездочку для приоритетных заказов
+                    string priorityMark = order is PriorityOrder ? "★" : "";
+
                     OrdersDataGridView.Rows.Add(
+                        priorityMark,
                         order.Id,
                         order.Date.ToShortDateString(),
                         order.Status,
@@ -99,7 +129,7 @@ namespace ObjectOrientedPractics.View.Tabs
 
             OrderIdTextBox.Text = _currentOrder.Id.ToString();
             OrderDateTextBox.Text = _currentOrder.Date.ToString();
-            OrderStatusComboBox.SelectedIndex = (int)_currentOrder.Status;
+            OrderStatusComboBox.SelectedItem = _currentOrder.Status;
             OrderAddressControl.Address = _currentOrder.Address;
             AmountLabel.Text = _currentOrder.Amount.ToString("F2");
 
@@ -109,6 +139,19 @@ namespace ObjectOrientedPractics.View.Tabs
                 OrderItemsListBox.Items.Add(item.Name);
             }
             OrderStatusComboBox.Enabled = true;
+
+            // Обработка приоритетных заказов
+            if (_currentOrder is PriorityOrder priorityOrder)
+            {
+                _currentPriorityOrder = priorityOrder;
+                PriorityOptionsPanel.Visible = true;
+                DeliveryTimeComboBox.SelectedItem = _currentPriorityOrder.DeliveryTime;
+            }
+            else
+            {
+                _currentPriorityOrder = null;
+                PriorityOptionsPanel.Visible = false;
+            }
         }
 
         /// <summary>
@@ -130,14 +173,26 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         private void OrderStatusComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_currentOrder == null || OrderStatusComboBox.SelectedIndex == -1) return;
+            if (_currentOrder == null || OrderStatusComboBox.SelectedItem == null) return;
 
-            _currentOrder.Status = (OrderStatus)OrderStatusComboBox.SelectedIndex;
+            _currentOrder.Status = (OrderStatus)OrderStatusComboBox.SelectedItem;
 
+            // Обновляем отображение в таблице (учитываем новый столбец с звездочкой)
             int index = OrdersDataGridView.CurrentCell.RowIndex;
             if (index >= 0 && index < _orders.Count)
             {
-                OrdersDataGridView.Rows[index].Cells[2].Value = _currentOrder.Status;
+                OrdersDataGridView.Rows[index].Cells[3].Value = _currentOrder.Status;
+            }
+        }
+
+        /// <summary>
+        /// Обработчик изменения времени доставки для приоритетных заказов.
+        /// </summary>
+        private void DeliveryTimeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_currentPriorityOrder != null && DeliveryTimeComboBox.SelectedItem != null)
+            {
+                _currentPriorityOrder.DeliveryTime = (string)DeliveryTimeComboBox.SelectedItem;
             }
         }
     }
