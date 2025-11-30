@@ -43,11 +43,25 @@ namespace ObjectOrientedPractics.Model
         private List<Order> _orders;
 
         /// <summary>
+        /// Приоритетный покупатель.
+        /// </summary>
+        private bool _isPriority;
+
+        /// <summary>
         /// Свойство поля _id
         /// </summary>
         public int ID
         {
             get { return _id; }
+        }
+
+        /// <summary>
+        /// Возвращает и задает значение, указывающее является ли покупатель приоритетным.
+        /// </summary>
+        public bool IsPriority
+        {
+            get { return _isPriority; }
+            set { _isPriority = value; }
         }
 
         /// <summary>
@@ -91,19 +105,36 @@ namespace ObjectOrientedPractics.Model
         }
 
         /// <summary>
-        /// Консруктор класса Customer
+        /// Конструктор класса Customer
         /// </summary>
         /// <param name="fullname">Полное имя покупателя</param>
-        /// _cart // КОМПОЗИЦИЯ - корзина создается вместе с покупателем
-        /// _orders // КОМПОЗИЦИЯ - список заказов создается вместе с покупателем
+        /// <param name="address">Адрес покупателя</param>
+        /// <param name="isPriority">Является ли покупатель приоритетным</param>
+        public Customer(string fullname, Address address, bool isPriority = false)
+        {
+            _IDCount++;
+            _id = _IDCount;
+            FullName = fullname;
+            Address = address;
+            IsPriority = isPriority;
+            _cart = new Cart();
+            _orders = new List<Order>();
+        }
+
+        /// <summary>
+        /// Конструктор класса Customer
+        /// </summary>
+        /// <param name="fullname">Полное имя покупателя</param>
         public Customer(string fullname)
         {
             _IDCount++;
             _id = _IDCount;
-            _fullname = fullname;
-            _address = new Address();
-            _cart = new Cart(); 
+            FullName = fullname;
+            Address = new Address();
+            IsPriority = false;
+            _cart = new Cart();
             _orders = new List<Order>();
         }
     }
+    
 }

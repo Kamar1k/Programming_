@@ -238,10 +238,26 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             if (_currentCustomer == null) return;
 
-            // Используем конструктор Order, который принимает адрес и список товаров
-            // ID и дата создания автоматически генерируются в конструкторе Order
-            _currentCustomer.Orders.Add(new Order(_currentCustomer.Address, _currentCustomer.Cart.Items));
-            _currentCustomer.Cart = new Cart();
+            Order newOrder;
+
+            if (_currentCustomer.IsPriority)
+            {
+                // Создаем приоритетный заказ для приоритетного покупателя
+                newOrder = new PriorityOrder(
+                    _currentCustomer.Address,
+                    new List<Item>(_currentCustomer.Cart.Items),
+                    DateTime.Now.AddDays(1), // Желаемая дата доставки (завтра)
+                    "9:00 - 11:00" // Время доставки по умолчанию
+                );
+            }
+            else
+            {
+                // Создаем обычный заказ для обычного покупателя
+                newOrder = new Order(_currentCustomer.Address, new List<Item>(_currentCustomer.Cart.Items));
+            }
+
+            _currentCustomer.Orders.Add(newOrder);
+            _currentCustomer.Cart.Items.Clear();
             UpdateCartListBox(CustomersComboBox.SelectedIndex);
         }
     }

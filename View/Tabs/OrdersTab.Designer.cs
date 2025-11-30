@@ -43,7 +43,7 @@
             SplitContainer = new SplitContainer();
             OrdersDataGridView = new DataGridView();
             Id = new DataGridViewTextBoxColumn();
-            Created = new DataGridViewTextBoxColumn();
+            OrderDateColumn = new DataGridViewTextBoxColumn();
             OrderStatus = new DataGridViewTextBoxColumn();
             CustomerFullName = new DataGridViewTextBoxColumn();
             DeliveryAddress = new DataGridViewTextBoxColumn();
@@ -160,7 +160,7 @@
             OrdersDataGridView.AllowUserToDeleteRows = false;
             OrdersDataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             OrdersDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            OrdersDataGridView.Columns.AddRange(new DataGridViewColumn[] { Id, Created, OrderStatus, CustomerFullName, DeliveryAddress, Amount });
+            OrdersDataGridView.Columns.AddRange(new DataGridViewColumn[] { Id, OrderDateColumn, OrderStatus, CustomerFullName, DeliveryAddress, Amount });
             OrdersDataGridView.Location = new Point(3, 18);
             OrdersDataGridView.Name = "OrdersDataGridView";
             OrdersDataGridView.ReadOnly = true;
@@ -175,12 +175,12 @@
             Id.ReadOnly = true;
             Id.Width = 50;
             // 
-            // Created
+            // OrderDateColumn
             // 
-            Created.HeaderText = "Created";
-            Created.Name = "Created";
-            Created.ReadOnly = true;
-            Created.Width = 120;
+            OrderDateColumn.HeaderText = "Created";
+            OrderDateColumn.Name = "OrderDateColumn";
+            OrderDateColumn.ReadOnly = true;
+            OrderDateColumn.Width = 120;
             // 
             // OrderStatus
             // 
@@ -239,7 +239,7 @@
             // 
             AmountLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             AmountLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            AmountLabel.Location = new Point(3, 423);
+            AmountLabel.Location = new Point(3, 431);
             AmountLabel.Name = "AmountLabel";
             AmountLabel.RightToLeft = RightToLeft.No;
             AmountLabel.Size = new Size(533, 35);
@@ -251,7 +251,7 @@
             // 
             AmountTextLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             AmountTextLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            AmountTextLabel.Location = new Point(6, 408);
+            AmountTextLabel.Location = new Point(3, 416);
             AmountTextLabel.Name = "AmountTextLabel";
             AmountTextLabel.Size = new Size(533, 15);
             AmountTextLabel.TabIndex = 11;
@@ -260,7 +260,7 @@
             // 
             // OrderItemsListBox
             // 
-            OrderItemsListBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            OrderItemsListBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             OrderItemsListBox.FormattingEnabled = true;
             OrderItemsListBox.ItemHeight = 15;
             OrderItemsListBox.Location = new Point(3, 300);
@@ -354,7 +354,6 @@
             SplitContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)OrdersDataGridView).EndInit();
             ResumeLayout(false);
-
         }
 
         #endregion
@@ -384,7 +383,7 @@
         private System.Windows.Forms.Label AmountTextLabel;
         private System.Windows.Forms.DataGridView OrdersDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Created;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OrderDateColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn OrderStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn CustomerFullName;
         private System.Windows.Forms.DataGridViewTextBoxColumn DeliveryAddress;
