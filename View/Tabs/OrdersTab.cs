@@ -1,5 +1,6 @@
 ﻿using ObjectOrientedPractics.Model;
 using ObjectOrientedPractics.Model.Enums;
+using ObjectOrientedPractics.Model.Orders;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -151,7 +152,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 _currentPriorityOrder = null;
                 PriorityOptionsPanel.Visible = false;
-            }
+            }   
         }
 
         /// <summary>

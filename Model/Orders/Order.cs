@@ -38,6 +38,11 @@ namespace ObjectOrientedPractics.Model
         private OrderStatus _status;
 
         /// <summary>
+        /// Сумма скидки.
+        /// </summary>
+        private double _discountAmount;
+
+        /// <summary>
         /// Счетчик для генерации ID.
         /// </summary>
         private static int _idCounter = 1;
@@ -80,7 +85,21 @@ namespace ObjectOrientedPractics.Model
         }
 
         /// <summary>
-        /// Возвращает общую стоимость заказа.
+        /// Возвращает и задает сумму примененной скидки.
+        /// </summary>
+        public double DiscountAmount
+        {
+            get { return _discountAmount; }
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentException("Скидка не может быть отрицательной");
+                _discountAmount = value;
+            }
+        }
+
+        /// <summary>
+        /// Возвращает общую стоимость заказа (без скидки).
         /// </summary>
         public double Amount
         {
@@ -94,6 +113,17 @@ namespace ObjectOrientedPractics.Model
         }
 
         /// <summary>
+        /// Возвращает итоговую стоимость заказа (со скидкой).
+        /// </summary>
+        public double Total
+        {
+            get
+            {
+                return Amount - DiscountAmount;
+            }
+        }
+
+        /// <summary>
         /// Создает экземпляр класса <see cref="Order"/>.
         /// </summary>
         /// <param name="address">Адрес доставки.</param>
@@ -103,8 +133,9 @@ namespace ObjectOrientedPractics.Model
             _id = _idCounter++;
             _date = DateTime.Now;
             _address = address;
-            _items = new List<Item>(items); 
+            _items = new List<Item>(items);
             _status = OrderStatus.New;
+            _discountAmount = 0.0;
         }
 
         /// <summary>
@@ -117,6 +148,21 @@ namespace ObjectOrientedPractics.Model
             _address = new Address();
             _items = new List<Item>();
             _status = OrderStatus.New;
+            _discountAmount = 0.0;
+        }
+
+        /// <summary>
+        /// Создает экземпляр класса <see cref="Order"/> с указанием покупателя.
+        /// </summary>
+        /// <param name="customer">Покупатель.</param>
+        public Order(Customer customer)
+        {
+            _id = _idCounter++;
+            _date = DateTime.Now;
+            _address = customer.Address;
+            _items = new List<Item>();
+            _status = OrderStatus.New;
+            _discountAmount = 0.0;
         }
     }
 }

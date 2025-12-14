@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ObjectOrientedPractics.Services;
+using ObjectOrientedPractics.Model.Discounts;
+using ObjectOrientedPractics.Model.Enums;
+using ObjectOrientedPractics.Model.Orders;
 
 namespace ObjectOrientedPractics.Model
 {
@@ -46,6 +49,11 @@ namespace ObjectOrientedPractics.Model
         /// Приоритетный покупатель.
         /// </summary>
         private bool _isPriority;
+
+        /// <summary>
+        /// Список скидок покупателя.
+        /// </summary>
+        private List<IDiscount> _discounts;
 
         /// <summary>
         /// Свойство поля _id
@@ -105,6 +113,15 @@ namespace ObjectOrientedPractics.Model
         }
 
         /// <summary>
+        /// Возвращает и задает список скидок покупателя.
+        /// </summary>
+        public List<IDiscount> Discounts
+        {
+            get { return _discounts; }
+            set { _discounts = value; }
+        }
+
+        /// <summary>
         /// Конструктор класса Customer
         /// </summary>
         /// <param name="fullname">Полное имя покупателя</param>
@@ -119,6 +136,10 @@ namespace ObjectOrientedPractics.Model
             IsPriority = isPriority;
             _cart = new Cart();
             _orders = new List<Order>();
+            _discounts = new List<IDiscount>();
+
+            // Автоматически добавляем накопительную скидку
+            _discounts.Add(new PointsDiscount());
         }
 
         /// <summary>
@@ -134,7 +155,37 @@ namespace ObjectOrientedPractics.Model
             IsPriority = false;
             _cart = new Cart();
             _orders = new List<Order>();
+            _discounts = new List<IDiscount>();
+
+            // Автоматически добавляем накопительную скидку
+            _discounts.Add(new PointsDiscount());
+        }
+
+        /// <summary>
+        /// Добавляет процентную скидку на указанную категорию товаров.
+        /// </summary>
+        /// <param name="category">Категория товаров.</param>
+        public void AddPercentDiscount(Category category)
+        {
+            _discounts.Add(new PercentDiscount(category));
+        }
+
+        /// <summary>
+        /// Удаляет скидку по указанному индексу.
+        /// </summary>
+        /// <param name="index">Индекс скидки в списке.</param>
+        /// <returns>True, если скидка удалена успешно, иначе False.</returns>
+        public bool RemoveDiscount(int index)
+        {
+            if (index < 0 || index >= _discounts.Count)
+                return false;
+
+            // Нельзя удалить накопительную скидку (PointsDiscount)
+            if (_discounts[index] is PointsDiscount)
+                return false;
+
+            _discounts.RemoveAt(index);
+            return true;
         }
     }
-    
 }

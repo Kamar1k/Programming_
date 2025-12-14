@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ObjectOrientedPractics.Model
+namespace ObjectOrientedPractics.Model.Orders
 {
     /// <summary>
     /// Хранит данные о заказе приоритетного обслуживания.

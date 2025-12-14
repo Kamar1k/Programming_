@@ -31,6 +31,8 @@ namespace ObjectOrientedPractics
 
             // Добавляем обработчик переключения вкладок
             tab1Paget.SelectedIndexChanged += Tab1Paget_SelectedIndexChanged;
+
+            priorityOrdersTab1.Items = _store.Items;
         }
 
         /// <summary>
