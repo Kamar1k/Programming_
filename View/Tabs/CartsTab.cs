@@ -1,9 +1,12 @@
 ﻿using ObjectOrientedPractics.Model;
 using ObjectOrientedPractics.Model.Discounts;
+using ObjectOrientedPractics.Model.Orders;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
+
 namespace ObjectOrientedPractics.View.Tabs
 {
     public partial class CartsTab : UserControl
@@ -20,59 +23,68 @@ namespace ObjectOrientedPractics.View.Tabs
         private Label discountsTextLabel;
         private Label discountAmountTextLabel;
         private Label totalTextLabel;
-        private double _currentDiscount = 0.0;
+
+        private double _currentDiscount;
 
         public CartsTab()
         {
             InitializeComponent();
-            InitializeDiscountsPanel(); // Создаем панель скидок
+            InitializeDiscountsPanel();
         }
 
         private void InitializeDiscountsPanel()
         {
-            // 1. Панель для скидок
-            discountsPanel = new Panel();
-            discountsPanel.Dock = DockStyle.Top;
-            discountsPanel.Height = 180;
-            discountsPanel.BorderStyle = BorderStyle.FixedSingle;
+            discountsPanel = new Panel
+            {
+                Dock = DockStyle.Top,
+                Height = 180,
+                BorderStyle = BorderStyle.FixedSingle
+            };
 
-            // 2. Надпись "Применить скидки"
-            discountsTextLabel = new Label();
-            discountsTextLabel.Text = "Применить скидки:";
-            discountsTextLabel.Location = new Point(10, 10);
-            discountsTextLabel.AutoSize = true;
+            discountsTextLabel = new Label
+            {
+                Text = "Применить скидки:",
+                Location = new Point(10, 10),
+                AutoSize = true
+            };
 
-            // 3. CheckedListBox для выбора скидок
-            discountsCheckedListBox = new CheckedListBox();
-            discountsCheckedListBox.Location = new Point(10, 30);
-            discountsCheckedListBox.Size = new Size(300, 120);
-            discountsCheckedListBox.CheckOnClick = true;
+            discountsCheckedListBox = new CheckedListBox
+            {
+                Location = new Point(10, 30),
+                Size = new Size(300, 120),
+                CheckOnClick = true
+            };
             discountsCheckedListBox.ItemCheck += DiscountsCheckedListBox_ItemCheck;
 
-            // 4. Надпись "Сумма скидки"
-            discountAmountTextLabel = new Label();
-            discountAmountTextLabel.Text = "Сумма скидки:";
-            discountAmountTextLabel.Location = new Point(320, 30);
-            discountAmountTextLabel.AutoSize = true;
+            discountAmountTextLabel = new Label
+            {
+                Text = "Сумма скидки:",
+                Location = new Point(320, 30),
+                AutoSize = true
+            };
 
-            discountAmountLabel = new Label();
-            discountAmountLabel.Text = "0,00 ₽";
-            discountAmountLabel.Location = new Point(420, 30);
-            discountAmountLabel.AutoSize = true;
+            discountAmountLabel = new Label
+            {
+                Text = "0,00 ₽",
+                Location = new Point(420, 30),
+                AutoSize = true
+            };
 
-            // 5. Надпись "Итого к оплате"
-            totalTextLabel = new Label();
-            totalTextLabel.Text = "Итого к оплате:";
-            totalTextLabel.Location = new Point(320, 60);
-            totalTextLabel.AutoSize = true;
+            totalTextLabel = new Label
+            {
+                Text = "Итого к оплате:",
+                Location = new Point(320, 60),
+                AutoSize = true
+            };
 
-            totalLabel = new Label();
-            totalLabel.Text = "0,00 ₽";
-            totalLabel.Location = new Point(420, 60);
-            totalLabel.AutoSize = true;
-            totalLabel.Font = new Font(totalLabel.Font, FontStyle.Bold);
+            totalLabel = new Label
+            {
+                Text = "0,00 ₽",
+                Location = new Point(420, 60),
+                AutoSize = true,
+                Font = new Font(Font, FontStyle.Bold)
+            };
 
-            // 6. Добавляем элементы на панель
             discountsPanel.Controls.Add(discountsTextLabel);
             discountsPanel.Controls.Add(discountsCheckedListBox);
             discountsPanel.Controls.Add(discountAmountTextLabel);
@@ -80,50 +92,47 @@ namespace ObjectOrientedPractics.View.Tabs
             discountsPanel.Controls.Add(totalTextLabel);
             discountsPanel.Controls.Add(totalLabel);
 
-            // 7. Добавляем панель на форму (ПЕРЕД основным контейнером)
-            this.Controls.Add(discountsPanel);
+            Controls.Add(discountsPanel);
             discountsPanel.BringToFront();
 
-            // 8. Смещаем основной контейнер вниз
             CartSplitContainer.Location = new Point(0, 180);
-            CartSplitContainer.Height = this.Height - 180;
+            CartSplitContainer.Height = Height - 180;
         }
 
-        // Методы для работы со скидками
+        // ========== НОВЫЕ МЕТОДЫ ДЛЯ СКИДОК ==========
         private void UpdateDiscountsList()
         {
-            if (discountsCheckedListBox == null) return;
-
             discountsCheckedListBox.Items.Clear();
-            if (_currentCustomer?.Discounts != null)
+
+            if (_currentCustomer?.Discounts == null)
+                return;
+
+            foreach (IDiscount discount in _currentCustomer.Discounts)
             {
-                foreach (IDiscount discount in _currentCustomer.Discounts)
-                {
-                    discountsCheckedListBox.Items.Add(discount.Info, true);
-                }
+                discountsCheckedListBox.Items.Add(discount, true);
             }
+
             UpdateDiscountDisplay();
         }
 
         private void UpdateDiscountDisplay()
         {
-            if (_currentCustomer == null || _currentCustomer.Cart.Items?.Count == 0)
+            if (_currentCustomer == null || _currentCustomer.Cart.Items.Count == 0)
             {
                 discountAmountLabel.Text = "0,00 ₽";
                 totalLabel.Text = _currentCustomer?.Cart.Amount.ToString("F2") + " ₽" ?? "0,00 ₽";
                 return;
             }
 
-            double discountSum = 0.0;
-            for (int i = 0; i < discountsCheckedListBox.Items.Count; i++)
+            double discountSum = 0;
+
+            foreach (IDiscount discount in discountsCheckedListBox.CheckedItems)
             {
-                if (discountsCheckedListBox.GetItemChecked(i))
-                {
-                    discountSum += _currentCustomer.Discounts[i].Calculate(_currentCustomer.Cart.Items);
-                }
+                discountSum += discount.Calculate(_currentCustomer.Cart.Items);
             }
 
             _currentDiscount = discountSum;
+
             double totalAmount = _currentCustomer.Cart.Amount;
             double finalTotal = totalAmount - discountSum;
 
@@ -133,14 +142,56 @@ namespace ObjectOrientedPractics.View.Tabs
 
         private void DiscountsCheckedListBox_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            this.BeginInvoke((MethodInvoker)delegate
-            {
-                UpdateDiscountDisplay();
-            });
+            BeginInvoke((MethodInvoker)UpdateDiscountDisplay);
         }
 
-        // --- ОСТАЛЬНЫЕ МЕТОДЫ (ваш существующий код с небольшими изменениями) ---
+        private void CreateOrderButton_Click(object sender, EventArgs e)
+        {
+            if (_currentCustomer == null || _currentCustomer.Cart.Items.Count == 0)
+            {
+                MessageBox.Show("Добавьте товары в корзину!", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
+            double totalDiscount = 0;
+
+            foreach (IDiscount discount in discountsCheckedListBox.CheckedItems)
+            {
+                totalDiscount += discount.Apply(_currentCustomer.Cart.Items);
+            }
+
+            foreach (IDiscount discount in _currentCustomer.Discounts)
+            {
+                discount.Update(_currentCustomer.Cart.Items);
+            }
+
+            Order order = _currentCustomer.IsPriority
+                ? new PriorityOrder(
+                    _currentCustomer.Address,
+                    new List<Item>(_currentCustomer.Cart.Items),
+                    DateTime.Now.AddDays(1),
+                    "9:00 - 11:00")
+                : new Order(
+                    _currentCustomer.Address,
+                    new List<Item>(_currentCustomer.Cart.Items));
+
+            order.DiscountAmount = totalDiscount;
+
+            _currentCustomer.Orders.Add(order);
+            _currentCustomer.Cart.Items.Clear();
+
+            UpdateCartListBox(CustomersComboBox.SelectedIndex);
+            UpdateDiscountsList();
+
+            MessageBox.Show(
+                $"Заказ создан!\nСкидка: {totalDiscount:F2} ₽",
+                "Успех",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+        }
+
+        // ========== ТВОИ СУЩЕСТВУЮЩИЕ МЕТОДЫ ==========
         private void UpdateItemsListBox(int index)
         {
             var items = Items;
@@ -173,12 +224,7 @@ namespace ObjectOrientedPractics.View.Tabs
             }
 
             UpdateAmountLabel();
-            UpdateDiscountDisplay(); // ОБНОВЛЕНО
-        }
-
-        private void UpdateAmountLabel()
-        {
-            AmountLabel.Text = _currentCustomer == null ? "0,00" : _currentCustomer.Cart.Amount.ToString("f");
+            UpdateDiscountDisplay();
         }
 
         private void UpdateComboBox(int index)
@@ -195,6 +241,12 @@ namespace ObjectOrientedPractics.View.Tabs
             }
         }
 
+        private void UpdateAmountLabel()
+        {
+            AmountLabel.Text = _currentCustomer == null ? "0,00" : _currentCustomer.Cart.Amount.ToString("f");
+        }
+
+        // ========== ПРОПЕРТИ ==========
         public List<Item> Items
         {
             get => _items;
@@ -213,15 +265,17 @@ namespace ObjectOrientedPractics.View.Tabs
             UpdateItemsListBox(-1);
             UpdateComboBox(-1);
             UpdateCartListBox(-1);
-            UpdateDiscountsList(); // ОБНОВЛЕНО
+            UpdateDiscountsList();
         }
 
         private void CustomersComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateCartListBox(CustomersComboBox.SelectedIndex);
-            if (CustomersComboBox.SelectedIndex == -1) return;
+            if (CustomersComboBox.SelectedIndex == -1)
+                return;
+
             _currentCustomer = Customers[CustomersComboBox.SelectedIndex];
-            UpdateDiscountsList(); // ДОБАВЛЕНО
+            UpdateCartListBox(CustomersComboBox.SelectedIndex);
+            UpdateDiscountsList();
         }
 
         private void AddToCartButton_Click(object sender, EventArgs e)
@@ -243,65 +297,6 @@ namespace ObjectOrientedPractics.View.Tabs
             if (_currentCustomer == null) return;
             _currentCustomer.Cart.Items.Clear();
             UpdateCartListBox(CustomersComboBox.SelectedIndex);
-        }
-
-        private void CreateOrderButton_Click(object sender, EventArgs e)
-        {
-            if (_currentCustomer == null) return;
-
-            var cartItems = _currentCustomer.Cart.Items;
-            if (cartItems == null || cartItems.Count == 0)
-            {
-                MessageBox.Show("Добавьте товары в корзину!", "Ошибка",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // 1. Рассчитываем итоговую скидку
-            double totalDiscount = 0.0;
-            for (int i = 0; i < discountsCheckedListBox.Items.Count; i++)
-            {
-                if (discountsCheckedListBox.GetItemChecked(i))
-                {
-                    totalDiscount += _currentCustomer.Discounts[i].Apply(cartItems);
-                }
-            }
-
-            // 2. Обновляем ВСЕ скидки покупателя
-            foreach (IDiscount discount in _currentCustomer.Discounts)
-            {
-                discount.Update(cartItems);
-            }
-
-            // 3. Создаем заказ
-            Order newOrder;
-            if (_currentCustomer.IsPriority)
-            {
-                newOrder = new PriorityOrder(
-                    _currentCustomer.Address,
-                    new List<Item>(cartItems),
-                    DateTime.Now.AddDays(1),
-                    "9:00 - 11:00"
-                );
-            }
-            else
-            {
-                newOrder = new Order(_currentCustomer.Address, new List<Item>(cartItems));
-            }
-
-            // 4. Сохраняем размер скидки в заказе
-            newOrder.DiscountAmount = totalDiscount;
-
-            // 5. Добавляем заказ и очищаем корзину
-            _currentCustomer.Orders.Add(newOrder);
-            _currentCustomer.Cart.Items.Clear();
-
-            // 6. Обновляем интерфейс
-            UpdateCartListBox(CustomersComboBox.SelectedIndex);
-            UpdateDiscountsList();
-
-            MessageBox.Show($"Заказ создан!\nСкидка: {totalDiscount:F2} ₽", "Успех",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
